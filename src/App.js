@@ -1,17 +1,17 @@
+import { useState, useEffect } from 'react';
 import { firebaseAuth } from './firebase';
 import Login from './Login';
 import './App.css';
 
-// Initialize Firebase
-firebaseAuth.onAuthStateChanged((user) => {
-  if (user) {
-    console.log('already signin', user);
-  } else {
-    console.log('not signin');
-  }
-});
-
 function App() {
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      user?.displayName ? setUserName(user.displayName) : setUserName(null);
+    });
+  }, []);
+
   const signOut = () => {
     firebaseAuth
       .signOut()
@@ -25,6 +25,7 @@ function App() {
     <div className="App">
       <button onClick={signOut}>logout</button>
       card maker
+      {userName}
       <Login></Login>
     </div>
   );
