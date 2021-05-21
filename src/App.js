@@ -1,4 +1,4 @@
-import { firebaseInstance, firebaseAuth } from './firebase';
+import { firebaseAuth } from './firebase';
 import Login from './Login';
 import './App.css';
 
@@ -21,29 +21,8 @@ function App() {
       .catch(console.error);
   };
 
-  const signInWithGithub = () => {
-    const provider = new firebaseInstance.auth.GithubAuthProvider();
-    provider.addScope('repo');
-
-    firebaseAuth
-      .signInWithPopup(provider)
-      .then(console.log)
-      .catch(console.error);
-  };
-
-  const signInWithGoogle = () => {
-    const provider = new firebaseInstance.auth.GoogleAuthProvider();
-    firebaseAuth.languageCode = 'ko';
-    firebaseAuth
-      .signInWithPopup(provider)
-      .then(console.log)
-      .catch(console.error);
-  };
-
   return (
     <div className="App">
-      <button onClick={signInWithGoogle}>google login</button>
-      <button onClick={signInWithGithub}>github login</button>
       <button onClick={signOut}>logout</button>
       card maker
       <Login></Login>
