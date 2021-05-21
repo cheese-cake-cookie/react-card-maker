@@ -1,34 +1,19 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { firebaseInstance, firebaseAuth } from './firebase';
 import Login from './Login';
 import './App.css';
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: 'react-card-maker.firebaseapp.com',
-  databaseURL: 'https://react-card-maker-default-rtdb.firebaseio.com',
-  projectId: 'react-card-maker',
-  storageBucket: 'react-card-maker.appspot.com',
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
-
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+firebaseAuth.onAuthStateChanged((user) => {
+  if (user) {
+    console.log('already signin', user);
+  } else {
+    console.log('not signin');
+  }
+});
 
 function App() {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log('already signin', user);
-    } else {
-      console.log('not signin');
-    }
-  });
-
   const signOut = () => {
-    firebase
-      .auth()
+    firebaseAuth
       .signOut()
       .then(() => {
         console.log('signout');
@@ -37,21 +22,19 @@ function App() {
   };
 
   const signInWithGithub = () => {
-    const provider = new firebase.auth.GithubAuthProvider();
+    const provider = new firebaseInstance.auth.GithubAuthProvider();
     provider.addScope('repo');
 
-    firebase
-      .auth()
+    firebaseAuth
       .signInWithPopup(provider)
       .then(console.log)
       .catch(console.error);
   };
 
   const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().languageCode = 'ko';
-    firebase
-      .auth()
+    const provider = new firebaseInstance.auth.GoogleAuthProvider();
+    firebaseAuth.languageCode = 'ko';
+    firebaseAuth
       .signInWithPopup(provider)
       .then(console.log)
       .catch(console.error);
