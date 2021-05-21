@@ -47,8 +47,19 @@ function App() {
       .catch(console.error);
   };
 
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().languageCode = 'ko';
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(console.log)
+      .catch(console.error);
+  };
+
   return (
     <div className="App">
+      <button onClick={signInWithGoogle}>google login</button>
       <button onClick={signInWithGithub}>github login</button>
       <button onClick={signOut}>logout</button>
       card maker
