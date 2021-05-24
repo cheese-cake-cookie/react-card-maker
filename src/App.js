@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { firebaseAuth } from './firebase';
+
+import Header from './Header';
 import Login from './Login';
 import Main from './Main';
 import './App.css';
@@ -17,17 +19,32 @@ function App() {
       .catch(console.error);
   };
 
+  const getUser = useCallback(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      user &&
+        setUser({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+        });
+    });
+  }, []);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
   return (
     <Router>
+      <Header user={user} signOut={signOut}></Header>
       <Switch>
         <Route exact path="/">
           <Main user={user} />
         </Route>
         <Route path="/login">
-          <Login />
+          <Login user={user} />
         </Route>
       </Switch>
-      {user && <button onClick={signOut}>logout</button>}
     </Router>
   );
 }
