@@ -1,0 +1,25 @@
+.header {
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  padding: 20px;
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  margin: 0px;
+}
+.button__logout {
+  width: 70px;
+  height: 35px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: none;
+  background-color: #999;
+  color: #fff;
+  margin-left: auto;
+}
