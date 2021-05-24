@@ -1,7 +1,23 @@
+import { useCallback, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { firebaseInstance, firebaseAuth } from './firebase';
 import styles from './Login.module.css';
 
 function Login() {
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
+
+  const historyCallback = useCallback(() => {
+    history.replace(from);
+  }, [history, from]);
+
+  useEffect(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      user && historyCallback();
+    });
+  });
+
   const signInWithGithub = () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
     provider.addScope('repo');
