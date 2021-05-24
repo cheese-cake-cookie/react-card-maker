@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { firebaseInstance, firebaseAuth } from './firebase';
 import styles from './Login.module.css';
@@ -6,17 +6,20 @@ import styles from './Login.module.css';
 function Login() {
   const history = useHistory();
   const location = useLocation();
-  const { from } = location.state || { from: { pathname: '/' } };
-
-  const historyCallback = useCallback(() => {
-    history.replace(from);
-  }, [history, from]);
+  const getUser = useCallback(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        return history.push({
+          pathname: '/',
+          state: { from: location },
+        });
+      }
+    });
+  }, [history, location]);
 
   useEffect(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
-      user && historyCallback();
-    });
-  });
+    getUser();
+  }, [getUser]);
 
   const signInWithGithub = () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
@@ -27,6 +30,7 @@ function Login() {
       .then(console.log)
       .catch(console.error);
   };
+
   const signInWithGoogle = () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     firebaseAuth.languageCode = 'ko';

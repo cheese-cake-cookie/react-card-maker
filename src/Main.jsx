@@ -1,18 +1,27 @@
-import { useHistory } from 'react-router-dom';
 import { useEffect, useCallback } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { firebaseAuth } from './firebase';
 import styles from './Main.module.css';
 
-function Main({ user }) {
+function Main({ children, ...rest }) {
   const history = useHistory();
-  const redirectToLogin = useCallback(() => {
-    history.replace({ pathname: '/login' });
-  }, [history]);
+  const location = useLocation();
+  const getUser = useCallback(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (!user) {
+        return history.push({
+          pathname: '/login',
+          state: { from: location },
+        });
+      }
+    });
+  }, [history, location]);
 
   useEffect(() => {
-    if (!user) return redirectToLogin();
-  }, [user, redirectToLogin]);
+    getUser();
+  }, [getUser]);
 
-  return <h2>HOME</h2>;
+  return <h1>main</h1>;
 }
 
 export default Main;

@@ -8,19 +8,6 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
-      user &&
-        setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          phoneNumber: user.phoneNumber,
-          photoURL: user.phoneNumber,
-          email: user.email,
-        });
-    });
-  });
-
   const signOut = () => {
     firebaseAuth
       .signOut()
