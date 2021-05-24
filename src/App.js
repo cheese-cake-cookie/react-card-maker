@@ -5,6 +5,8 @@ import { firebaseAuth } from './firebase';
 import Header from './Header';
 import Login from './Login';
 import Main from './Main';
+import CardPreview from './CardPreview';
+import CardMaker from './CardMaker';
 import './App.css';
 
 function App() {
@@ -44,7 +46,10 @@ function App() {
       <Header user={user} signOut={signOut}></Header>
       <Switch>
         <Route exact path="/">
-          <Main user={user} />
+          <Main user={user}>
+            <CardMaker></CardMaker>
+            <CardPreview></CardPreview>
+          </Main>
         </Route>
         <Route path="/login">
           <Login user={user} />

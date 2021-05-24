@@ -15,7 +15,7 @@ function Main({ children, user, ...rest }) {
     }
   }, [history, user, location]);
 
-  return <h1>HELLO </h1>;
+  return <>{children}</>;
 }
 
 export default Main;
