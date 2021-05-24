@@ -8,6 +8,7 @@ import Main from './Main';
 import './App.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   const signOut = () => {
@@ -27,6 +28,8 @@ function App() {
           displayName: user.displayName,
           email: user.email,
         });
+
+      setIsLoading(false);
     });
   }, []);
 
@@ -34,7 +37,9 @@ function App() {
     getUser();
   }, [getUser]);
 
-  return (
+  return isLoading ? (
+    <span>loading...</span>
+  ) : (
     <Router>
       <Header user={user} signOut={signOut}></Header>
       <Switch>
