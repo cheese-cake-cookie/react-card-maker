@@ -22,9 +22,19 @@ function Login() {
 
   return (
     <div className={styles.login__container}>
-      <h1>Welcome to My Awesome App</h1>
-      <button onClick={signInWithGithub}>github</button>
-      <button onClick={signInWithGoogle}>google</button>
+      <div className={styles.login__wrap}>
+        <h1 className={styles.title}>
+          Sign in and make your custom card at here!
+        </h1>
+        <section className={styles.actions}>
+          <button className={styles.button__github} onClick={signInWithGithub}>
+            github
+          </button>
+          <button className={styles.button__google} onClick={signInWithGoogle}>
+            google
+          </button>
+        </section>
+      </div>
     </div>
   );
 }

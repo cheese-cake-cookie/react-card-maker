@@ -16,7 +16,7 @@ function App() {
     firebaseAuth
       .signOut()
       .then(() => {
-        console.log('signout');
+        setUserName(null);
       })
       .catch(console.error);
   };
