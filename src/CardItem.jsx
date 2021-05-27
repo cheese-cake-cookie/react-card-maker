@@ -7,17 +7,7 @@ const THEME = {
   },
 };
 
-function CardItem({
-  user = {
-    name: 'MIA',
-    image: 'https://dummyimage.com/400x400/12e3ff/0011ff.jpg&text=mia',
-    company: 'Podbbang',
-    position: 'front-end developer',
-    email: 'wasabi@podbbang.com',
-    paragraph: 'beer!!!',
-    theme: 'blue',
-  },
-}) {
+function CardItem({ user }) {
   const cardStyle = {
     backgroundColor: THEME['blue'].bgColor,
     boxShadow: `2px 2px 5px 1px ${THEME['blue'].shadowColor}`,

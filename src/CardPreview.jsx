@@ -1,8 +1,15 @@
-function CardPreview() {
+import CardItem from './CardItem';
+function CardPreview({ users }) {
+  if (!users) {
+    return <p>make first card</p>;
+  }
+
   return (
     <>
       <h1>CardPreview</h1>
-      <ul></ul>
+      {users.map((user, index) => (
+        <CardItem user={user} key={index}></CardItem>
+      ))}
     </>
   );
 }
