@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useCallback, useEffect } from 'react';
-import { firebaseAuth } from './firebase';
+import { firebaseAuth, firebaseDatabase } from './firebase';
 
 import Header from './Header';
 import Login from './Login';
@@ -11,6 +11,7 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState([]);
   const [me, setMe] = useState(null);
 
   const signOut = () => {
@@ -39,6 +40,21 @@ function App() {
     getMe();
   }, [getMe]);
 
+  useEffect(() => {
+    const getUsers = () => {
+      const usersRef = firebaseDatabase.ref('users');
+
+      usersRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+
+        setUsers(users.concat(data));
+      });
+    };
+
+    getUsers();
+  }, []);
+
   return isLoading ? (
     <span>loading...</span>
   ) : (
@@ -48,7 +64,7 @@ function App() {
         <Route exact path="/">
           <Main me={me}>
             <CardMaker></CardMaker>
-            <CardPreview></CardPreview>
+            <CardPreview users={users}></CardPreview>
           </Main>
         </Route>
         <Route path="/login">
