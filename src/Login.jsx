@@ -3,18 +3,18 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { firebaseInstance, firebaseAuth } from './firebase';
 import styles from './Login.module.css';
 
-function Login({ user }) {
+function Login({ me }) {
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
-    if (user) {
+    if (me) {
       return history.push({
         pathname: '/',
         state: { from: location },
       });
     }
-  }, [history, user, location]);
+  }, [history, me, location]);
 
   const signInWithGithub = () => {
     const provider = new firebaseInstance.auth.GithubAuthProvider();
