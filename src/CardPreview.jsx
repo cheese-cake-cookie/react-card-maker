@@ -1,11 +1,11 @@
 import CardItem from './CardItem';
 function CardPreview({ selectedCard }) {
+  const message = selectedCard ? 'check your input' : 'make your awesome card';
   return (
     <>
-      <h1>CardPreview</h1>
+      <p>{message}</p>
       {!selectedCard ? (
         <>
-          <p>make your awesom card</p>
           <CardItem></CardItem>
         </>
       ) : (
