@@ -14,7 +14,7 @@ function CardItem({ user }) {
     color: THEME['blue'].color,
   };
   const cardImageStyle = {
-    backgroundImage: `url('${user.image}')`,
+    backgroundImage: `url('${user?.image}')`,
   };
 
   return (
@@ -25,12 +25,12 @@ function CardItem({ user }) {
             <div className={styles.user__image} style={cardImageStyle}></div>
           </div>
           <section className={styles.user}>
-            <h1 className={styles.user__name}>{user.name}</h1>
-            <p className={styles.user__company}>{user.company}</p>
+            <h1 className={styles.user__name}>{user?.name}</h1>
+            <p className={styles.user__company}>{user?.company}</p>
             <hr />
-            <p className={styles.user__position}>{user.position}</p>
-            <p className={styles.user__email}>{user.email}</p>
-            <p className={styles.user__paragraph}>{user.paragraph}</p>
+            <p className={styles.user__position}>{user?.position}</p>
+            <p className={styles.user__email}>{user?.email}</p>
+            <p className={styles.user__paragraph}>{user?.paragraph}</p>
           </section>
         </div>
       </div>

@@ -1,15 +1,16 @@
 import CardItem from './CardItem';
-function CardPreview({ users }) {
-  if (!users) {
-    return <p>make first card</p>;
-  }
-
+function CardPreview({ selectedCard }) {
+  const message = selectedCard ? 'check your input' : 'make your awesome card';
   return (
     <>
-      <h1>CardPreview</h1>
-      {users.map((user, index) => (
-        <CardItem user={user} key={index}></CardItem>
-      ))}
+      <p>{message}</p>
+      {!selectedCard ? (
+        <>
+          <CardItem></CardItem>
+        </>
+      ) : (
+        <CardItem user={selectedCard}></CardItem>
+      )}
     </>
   );
 }
