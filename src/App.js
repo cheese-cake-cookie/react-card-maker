@@ -11,24 +11,24 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [me, setMe] = useState(null);
 
   const signOut = () => {
     firebaseAuth
       .signOut()
       .then(() => {
-        setUser(null);
+        setMe(null);
       })
       .catch(console.error);
   };
 
-  const getUser = useCallback(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
-      user &&
-        setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
+  const getMe = useCallback(() => {
+    firebaseAuth.onAuthStateChanged((me) => {
+      me &&
+        setMe({
+          uid: me.uid,
+          displayName: me.displayName,
+          email: me.email,
         });
 
       setIsLoading(false);
@@ -36,23 +36,23 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    getMe();
+  }, [getMe]);
 
   return isLoading ? (
     <span>loading...</span>
   ) : (
     <Router>
-      <Header user={user} signOut={signOut}></Header>
+      <Header me={me} signOut={signOut}></Header>
       <Switch>
         <Route exact path="/">
-          <Main user={user}>
+          <Main me={me}>
             <CardMaker></CardMaker>
             <CardPreview></CardPreview>
           </Main>
         </Route>
         <Route path="/login">
-          <Login user={user} />
+          <Login me={me} />
         </Route>
       </Switch>
     </Router>

@@ -1,12 +1,12 @@
 import styles from './Header.module.css';
 
-function Header({ user, signOut }) {
-  console.log(user);
+function Header({ me, signOut }) {
+  console.log(me);
 
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>hello</h1>
-      {user ? (
+      {me ? (
         <button className={styles.button__logout} onClick={signOut}>
           logout
         </button>
