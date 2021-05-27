@@ -7,11 +7,13 @@ import Login from './Login';
 import Main from './Main';
 import CardPreview from './CardPreview';
 import CardMaker from './CardMaker';
+import CardList from './CardList';
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
   const [me, setMe] = useState(null);
 
   const signOut = () => {
@@ -40,20 +42,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const getUser = () => {
-      let users = [];
-      const usersRef = firebaseDatabase.ref('users');
+    const getCardList = () => {
+      let cards = [];
+      const cardsRef = firebaseDatabase.ref('cards');
 
-      usersRef.on('value', (snapshot) => {
+      cardsRef.on('value', (snapshot) => {
         const data = snapshot.val();
 
-        users = !data ? users : users.push(data);
+        cards = !data ? cards : cards.push(data);
 
-        setUsers(users);
+        setCards(cards);
       });
     };
 
-    getUser();
+    getCardList();
   }, []);
 
   if (isLoading) return <p>loading</p>;
@@ -63,8 +65,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Main me={me}>
-            <CardMaker></CardMaker>
-            <CardPreview users={users}></CardPreview>
+            <CardPreview selectedCard={selectedCard}></CardPreview>
+            <CardMaker selectedCard={selectedCard}></CardMaker>
+            <CardList cards={cards}></CardList>
           </Main>
         </Route>
         <Route path="/login">

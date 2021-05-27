@@ -1,4 +1,4 @@
-function CardMaker() {
+function CardMaker({ card }) {
   return (
     <>
       <h1>CardMaker</h1>
