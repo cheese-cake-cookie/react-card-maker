@@ -23,41 +23,41 @@ function App() {
       .catch(console.error);
   };
 
-  const getMe = useCallback(() => {
-    firebaseAuth.onAuthStateChanged((me) => {
-      me &&
-        setMe({
-          uid: me.uid,
-          displayName: me.displayName,
-          email: me.email,
-        });
+  useEffect(() => {
+    const getMe = () => {
+      firebaseAuth.onAuthStateChanged((me) => {
+        me &&
+          setMe({
+            uid: me.uid,
+            displayName: me.displayName,
+            email: me.email,
+          });
 
-      setIsLoading(false);
-    });
+        setIsLoading(false);
+      });
+    };
+    getMe();
   }, []);
 
   useEffect(() => {
-    getMe();
-  }, [getMe]);
-
-  useEffect(() => {
-    const getUsers = () => {
+    const getUser = () => {
+      let users = [];
       const usersRef = firebaseDatabase.ref('users');
 
       usersRef.on('value', (snapshot) => {
         const data = snapshot.val();
-        if (!data) return;
 
-        setUsers(users.concat(data));
+        users = !data ? users : users.push(data);
+
+        setUsers(users);
       });
     };
 
-    getUsers();
+    getUser();
   }, []);
 
-  return isLoading ? (
-    <span>loading...</span>
-  ) : (
+  if (isLoading) return <p>loading</p>;
+  return (
     <Router>
       <Header me={me} signOut={signOut}></Header>
       <Switch>
