@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useCallback, useEffect } from 'react';
-import { firebaseAuth } from './firebase';
+import { firebaseAuth, firebaseDatabase } from './firebase';
 
 import Header from './Header';
 import Login from './Login';
@@ -11,24 +11,25 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [me, setMe] = useState(null);
 
   const signOut = () => {
     firebaseAuth
       .signOut()
       .then(() => {
-        setUser(null);
+        setMe(null);
       })
       .catch(console.error);
   };
 
-  const getUser = useCallback(() => {
-    firebaseAuth.onAuthStateChanged((user) => {
-      user &&
-        setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
+  const getMe = useCallback(() => {
+    firebaseAuth.onAuthStateChanged((me) => {
+      me &&
+        setMe({
+          uid: me.uid,
+          displayName: me.displayName,
+          email: me.email,
         });
 
       setIsLoading(false);
@@ -36,23 +37,38 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    getMe();
+  }, [getMe]);
+
+  useEffect(() => {
+    const getUsers = () => {
+      const usersRef = firebaseDatabase.ref('users');
+
+      usersRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+
+        setUsers(users.concat(data));
+      });
+    };
+
+    getUsers();
+  }, []);
 
   return isLoading ? (
     <span>loading...</span>
   ) : (
     <Router>
-      <Header user={user} signOut={signOut}></Header>
+      <Header me={me} signOut={signOut}></Header>
       <Switch>
         <Route exact path="/">
-          <Main user={user}>
+          <Main me={me}>
             <CardMaker></CardMaker>
-            <CardPreview></CardPreview>
+            <CardPreview users={users}></CardPreview>
           </Main>
         </Route>
         <Route path="/login">
-          <Login user={user} />
+          <Login me={me} />
         </Route>
       </Switch>
     </Router>
