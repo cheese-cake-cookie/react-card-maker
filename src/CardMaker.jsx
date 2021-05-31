@@ -1,14 +1,55 @@
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.src = URL.createObjectURL(file);
+    image.onload = () => {
+      const base64URL = imageToBase64Encode(image);
+      return resolve(base64URL);
+    };
+
+    image.onerror = (err) => {
+      return reject(err);
+    };
+  });
+}
+
+function imageToBase64Encode(image) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalWidth;
+
+  ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+
+  return canvas.toDataURL('image/jpeg', 0.8);
+}
+
 function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
   const handleFormInput = (e) => {
     const { name, value } = e.target;
     onChange(name, value);
   };
 
+  const handleImageFile = (e) => {
+    fileToBase64(e.target.files[0])
+      .then((image) => {
+        onChange('image', image);
+      })
+      .catch(alert);
+  };
+
   return (
     <>
       <form>
         <label htmlFor="image">image</label>
-        <input id="image" type="file" />
+        <input
+          id="image"
+          type="file"
+          onChange={handleImageFile}
+          accept="image/*"
+        />
         <label htmlFor="name">name</label>
         <input
           id="name"
