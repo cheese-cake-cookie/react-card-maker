@@ -41,15 +41,16 @@ function App() {
   };
 
   const saveChange = () => {
-    const cardsRef = firebaseDatabase.ref().child('cards');
-
     // @TODO insert or update
     if (!selectedCard.id) {
+      const cardsRef = firebaseDatabase.ref().child('cards');
       const newCardRef = cardsRef.push();
       selectedCard.id = newCardRef.key;
       newCardRef.set(selectedCard);
     } else {
-      cardsRef.push().set(selectedCard);
+      let updates = {};
+      updates['/cards/' + selectedCard.id] = selectedCard;
+      firebaseDatabase.ref().update(updates);
     }
   };
 
