@@ -9,7 +9,7 @@ function CardPreview({ selectedCard }) {
           <CardItem></CardItem>
         </>
       ) : (
-        <CardItem user={selectedCard}></CardItem>
+        <CardItem card={selectedCard}></CardItem>
       )}
     </>
   );
