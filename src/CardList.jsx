@@ -1,11 +1,16 @@
 import CardItem from './CardItem';
 function CardList({ cards }) {
+  const ids = Object.keys(cards);
   return (
     <>
       <ul>
-        {cards.map((card, index) => (
-          <CardItem card={card} key={index}></CardItem>
-        ))}
+        {ids.map((id) => {
+          return (
+            <li>
+              <CardItem card={cards[id]} key={id}></CardItem>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

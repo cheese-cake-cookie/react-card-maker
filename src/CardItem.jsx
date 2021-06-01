@@ -7,14 +7,15 @@ const THEME = {
   },
 };
 
-function CardItem({ user }) {
+function CardItem({ card }) {
   const cardStyle = {
     backgroundColor: THEME['blue'].bgColor,
     boxShadow: `2px 2px 5px 1px ${THEME['blue'].shadowColor}`,
     color: THEME['blue'].color,
   };
+
   const cardImageStyle = {
-    backgroundImage: `url('${user?.image}')`,
+    backgroundImage: `url('${card?.image}')`,
   };
 
   return (
@@ -22,15 +23,15 @@ function CardItem({ user }) {
       <div className={styles.card__container}>
         <div className={styles.card__wrap}>
           <div className={styles.image}>
-            <div className={styles.user__image} style={cardImageStyle}></div>
+            <div className={styles.card__image} style={cardImageStyle}></div>
           </div>
-          <section className={styles.user}>
-            <h1 className={styles.user__name}>{user?.name}</h1>
-            <p className={styles.user__company}>{user?.company}</p>
+          <section className={styles.card}>
+            <h1 className={styles.card__name}>{card?.name}</h1>
+            <p className={styles.card__company}>{card?.company}</p>
             <hr />
-            <p className={styles.user__position}>{user?.position}</p>
-            <p className={styles.user__email}>{user?.email}</p>
-            <p className={styles.user__paragraph}>{user?.paragraph}</p>
+            <p className={styles.card__position}>{card?.position}</p>
+            <p className={styles.card__email}>{card?.email}</p>
+            <p className={styles.card__paragraph}>{card?.paragraph}</p>
           </section>
         </div>
       </div>

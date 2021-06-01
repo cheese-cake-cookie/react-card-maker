@@ -41,7 +41,17 @@ function App() {
   };
 
   const saveChange = () => {
-    // @TODO insert data to firebase
+    // @TODO insert or update
+    if (!selectedCard.id) {
+      const cardsRef = firebaseDatabase.ref().child('cards');
+      const newCardRef = cardsRef.push();
+      selectedCard.id = newCardRef.key;
+      newCardRef.set(selectedCard);
+    } else {
+      let updates = {};
+      updates['/cards/' + selectedCard.id] = selectedCard;
+      firebaseDatabase.ref().update(updates);
+    }
   };
 
   const signOut = () => {
@@ -71,13 +81,19 @@ function App() {
 
   useEffect(() => {
     const getCardList = () => {
-      let cards = [];
       const cardsRef = firebaseDatabase.ref('cards');
 
       cardsRef.on('value', (snapshot) => {
         const data = snapshot.val();
+        let cards = [];
 
-        cards = !data ? cards : cards.push(data);
+        if (!data) {
+          return;
+        }
+
+        for (const [key, value] of Object.entries(data)) {
+          cards[key] = value;
+        }
 
         setCards(cards);
       });

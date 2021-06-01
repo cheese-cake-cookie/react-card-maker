@@ -40,6 +40,35 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
       .catch(alert);
   };
 
+  const saveChanges = (e) => {
+    try {
+      if (!selectedCard.image) {
+        throw Error('이미지를 업로드해주세요.');
+      }
+
+      if (!selectedCard.name || !selectedCard.name.trim()) {
+        throw Error('이름을 입력해주세요.');
+      }
+
+      if (!selectedCard.company || !selectedCard.company.trim()) {
+        throw Error('회사 혹은 소속을 입력해주세요.');
+      }
+
+      if (!selectedCard.position || !selectedCard.position.trim()) {
+        throw Error('직책 / 직급을 입력해주세요.');
+      }
+
+      if (!selectedCard.email || !selectedCard.email.trim()) {
+        throw Error('이메일을 입력해주세요.');
+      }
+
+      e.preventDefault();
+      onSave();
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     <>
       <form>
@@ -49,6 +78,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           type="file"
           onChange={handleImageFile}
           accept="image/*"
+          required
         />
         <label htmlFor="name">name</label>
         <input
@@ -95,7 +125,9 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           onInput={handleFormInput}
         />
         <button onClick={onCancel}>cancel</button>
-        <button>{!selectedCard?.id ? 'save' : 'edit'}</button>
+        <button onClick={saveChanges}>
+          {!selectedCard?.id ? 'save' : 'edit'}
+        </button>
       </form>
     </>
   );

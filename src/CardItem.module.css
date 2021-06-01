@@ -29,7 +29,7 @@
   width: 40%;
   height: 100%;
 }
-.user {
+.card {
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -37,13 +37,13 @@
   font-size: 16px;
   box-sizing: border-box;
 }
-.user > hr {
+.card > hr {
   width: 100%;
   height: 1px;
   border: 0px;
   border-top: 1px solid #eee;
 }
-.user__image {
+.card__image {
   display: block;
   width: 90%;
   height: 65%;
@@ -52,23 +52,23 @@
   background-size: cover;
 }
 
-.user__name {
+.card__name {
   margin: 0px;
   height: 1.5em;
   font-size: 1.5em;
 }
-.user__company {
+.card__company {
   margin: 10px 0px 0px;
   height: 1em;
   font-size: 1em;
 }
-.user__position,
-.user__email,
-.user__paragraph {
+.card__position,
+.card__email,
+.card__paragraph {
   margin: 3px 0px;
   height: 1em;
   font-size: 1em;
 }
-.user > *:empty {
+.card > *:empty {
   background: linear-gradient(45deg, #ddd, #666);
 }
