@@ -133,7 +133,7 @@ function App() {
               </section>
               <section className="card-list">
                 <h1>CardList</h1>
-                <CardList cards={cards} me={me}></CardList>
+                <CardList cards={cards} me={me} onSelect={setSelectedCard}></CardList>
               </section>
             </section>
           </Main>
