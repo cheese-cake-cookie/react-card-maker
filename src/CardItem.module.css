@@ -1,10 +1,12 @@
 .card__item {
   padding: 10px;
-  max-width: 450px;
-  max-height: 300px;
+  width: 450px;
+  height: 260px;
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 8px;
+  text-align: left;
+  background-color: #e6e7e8;
 }
 .card__container {
   position: relative;

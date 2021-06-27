@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import styles from './CardMaker.module.css';
+
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -71,7 +74,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
 
   return (
     <>
-      <form>
+      <form className={styles.cardMaker__form}>
         <label htmlFor="image">image</label>
         <input
           id="image"
@@ -124,10 +127,19 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           placeholder="Input your paragraph at here"
           onInput={handleFormInput}
         />
-        <button onClick={onCancel}>cancel</button>
-        <button onClick={saveChanges}>
-          {!selectedCard?.id ? 'save' : 'edit'}
-        </button>
+        <label htmlFor="bgColor">메인 컬러</label>
+        <input
+          id="bgColor"
+          name="bgColor"
+          type="color"
+          onChange={handleFormInput}
+        />
+        <div className={styles.actions}>
+          <button onClick={onCancel}>cancel</button>
+          <button onClick={saveChanges}>
+            {!selectedCard?.id ? 'save' : 'edit'}
+          </button>
+        </div>
       </form>
     </>
   );
