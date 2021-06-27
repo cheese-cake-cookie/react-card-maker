@@ -90,6 +90,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           type="text"
           placeholder="Input your name at here"
           required
+          value={selectedCard.name}
           onInput={handleFormInput}
         />
         <label htmlFor="company">company</label>
@@ -99,6 +100,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           type="text"
           placeholder="Input your company at here"
           required
+          value={selectedCard.company}
           onInput={handleFormInput}
         />
         <label htmlFor="position">position</label>
@@ -108,6 +110,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           type="text"
           placeholder="Input your position at here"
           required
+          value={selectedCard.position}
           onInput={handleFormInput}
         />
         <label htmlFor="email">email</label>
@@ -117,6 +120,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           type="email"
           placeholder="Input your email at here"
           required
+          value={selectedCard.email}
           onInput={handleFormInput}
         />
         <label htmlFor="paragraph">paragraph</label>
@@ -125,6 +129,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           name="paragraph"
           type="text"
           placeholder="Input your paragraph at here"
+          value={selectedCard.paragraph}
           onInput={handleFormInput}
         />
         <label htmlFor="bgColor">메인 컬러</label>
@@ -132,6 +137,7 @@ function CardMaker({ selectedCard, onChange, onSave, onCancel }) {
           id="bgColor"
           name="bgColor"
           type="color"
+          value={selectedCard.bgColor}
           onChange={handleFormInput}
         />
         <div className={styles.actions}>

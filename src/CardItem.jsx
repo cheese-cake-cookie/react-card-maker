@@ -7,7 +7,7 @@ const THEME = {
   },
 };
 
-function CardItem({ card, me, isPreview = false }) {
+function CardItem({ card, me, isPreview = false, onSelect }) {
   const cardStyle = card && {
     backgroundColor: card.bgColor,
     boxShadow: `2px 2px 5px 1px ${card.bgColor}`,
@@ -19,8 +19,19 @@ function CardItem({ card, me, isPreview = false }) {
   };
 
   return (
-    <div className={styles.card__item} style={cardStyle}>
-      <div className={styles.card__container}>
+    <div
+      className={styles.card__item}
+      style={cardStyle}
+      onClick={() => {
+        console.log('item');
+      }}
+    >
+      <div
+        className={styles.card__container}
+        onClick={() => {
+          onSelect(card);
+        }}
+      >
         <div className={styles.card__wrap}>
           <div className={styles.image}>
             <div className={styles.card__image} style={cardImageStyle}></div>
