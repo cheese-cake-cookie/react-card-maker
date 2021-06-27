@@ -7,11 +7,11 @@ const THEME = {
   },
 };
 
-function CardItem({ card }) {
-  const cardStyle = {
-    backgroundColor: THEME['blue'].bgColor,
-    boxShadow: `2px 2px 5px 1px ${THEME['blue'].shadowColor}`,
-    color: THEME['blue'].color,
+function CardItem({ card, me, isPreview = false }) {
+  const cardStyle = card && {
+    backgroundColor: card.bgColor,
+    boxShadow: `2px 2px 5px 1px ${card.bgColor}`,
+    color: '#fff',
   };
 
   const cardImageStyle = {

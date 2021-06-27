@@ -1,5 +1,5 @@
 import CardItem from './CardItem';
-function CardList({ cards }) {
+function CardList({ cards, me }) {
   const ids = Object.keys(cards);
   return (
     <>
@@ -7,7 +7,7 @@ function CardList({ cards }) {
         {ids.map((id) => {
           return (
             <li>
-              <CardItem card={cards[id]} key={id}></CardItem>
+              <CardItem card={cards[id]} me={me} key={id}></CardItem>
             </li>
           );
         })}

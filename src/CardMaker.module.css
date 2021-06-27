@@ -1,0 +1,29 @@
+.cardMaker__form {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.cardMaker__form > label {
+  margin: 5px 0px 2px 0px;
+  font-size: small;
+}
+
+.cardMaker__form > input {
+  height: 30px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.actions > button {
+  flex: 0 0 50%;
+  height: 35px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+}

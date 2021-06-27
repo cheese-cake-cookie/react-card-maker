@@ -1,0 +1,22 @@
+.cardPreviewSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  padding: 0px 20px;
+  text-align: center;
+}
+.cardEditSection {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+}
+.cardEditSection > * {
+  flex: 1 1 50%;
+}
+
+.button {
+  width: 200px;
+  height: 70px;
+}
