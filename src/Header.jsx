@@ -1,8 +1,6 @@
 import styles from './Header.module.css';
 
-function Header({ me, signOut }) {
-  if (!me) return <p>plz login</p>;
-
+function Header({ signOut }) {
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>hello</h1>
