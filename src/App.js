@@ -8,6 +8,7 @@ import Main from './Main';
 import CardPreview from './CardPreview';
 import CardMaker from './CardMaker';
 import CardList from './CardList';
+import Loader from './Loader';
 import './App.css';
 import styles from './App.module.css';
 
@@ -104,11 +105,13 @@ function App() {
     getCardList();
   }, []);
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
   return (
     <Router>
-      <Header me={me} signOut={signOut}></Header>
+      {!me && <Header signOut={signOut}></Header> }
       <Switch>
         <Route exact path="/">
           <Main me={me}>
@@ -116,13 +119,20 @@ function App() {
               <h1>CardPreview</h1>
               <CardPreview selectedCard={selectedCard}></CardPreview>
               {!selectedCard && (
-                <button className={styles.button} onClick={createCard}>Create new Card</button>
+                <button className={styles.button} onClick={createCard}>
+                  Create new Card
+                </button>
               )}
             </section>
             <section className={styles.cardEditSection}>
               <section className="card-maker">
                 <h1>CardMaker</h1>
-                {selectedCard && (
+                {!selectedCard ? (
+                  <p>
+                    create new card 버튼을 클릭해서 새로운 카드를 만들거나
+                    <br /> 편집할 카드를 선택해주세요
+                  </p>
+                ) : (
                   <CardMaker
                     selectedCard={selectedCard}
                     onChange={updateCard}
@@ -133,7 +143,11 @@ function App() {
               </section>
               <section className="card-list">
                 <h1>CardList</h1>
-                <CardList cards={cards} me={me} onSelect={setSelectedCard}></CardList>
+                <CardList
+                  cards={cards}
+                  me={me}
+                  onSelect={setSelectedCard}
+                ></CardList>
               </section>
             </section>
           </Main>
