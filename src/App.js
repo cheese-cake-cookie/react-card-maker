@@ -8,6 +8,7 @@ import Main from './Main';
 import CardPreview from './CardPreview';
 import CardMaker from './CardMaker';
 import CardList from './CardList';
+import Loader from './Loader';
 import './App.css';
 import styles from './App.module.css';
 
@@ -104,11 +105,13 @@ function App() {
     getCardList();
   }, []);
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
   return (
     <Router>
-      <Header me={me} signOut={signOut}></Header>
+      {!me && <Header signOut={signOut}></Header> }
       <Switch>
         <Route exact path="/">
           <Main me={me}>
