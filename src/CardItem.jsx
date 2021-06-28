@@ -23,15 +23,10 @@ function CardItem({ card, me, isPreview = false, onSelect }) {
       className={styles.card__item}
       style={cardStyle}
       onClick={() => {
-        console.log('item');
+        !isPreview && onSelect(card);
       }}
     >
-      <div
-        className={styles.card__container}
-        onClick={() => {
-          onSelect(card);
-        }}
-      >
+      <div className={styles.card__container}>
         <div className={styles.card__wrap}>
           <div className={styles.image}>
             <div className={styles.card__image} style={cardImageStyle}></div>
