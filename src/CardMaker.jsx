@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styles from './CardMaker.module.css';
 
 function fileToBase64(file) {
