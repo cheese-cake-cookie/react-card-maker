@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { firebaseAuth, firebaseDatabase } from './firebase';
 
 import Header from './Header';

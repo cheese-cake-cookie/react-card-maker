@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styles from './CardMaker.module.css';
 
 function fileToBase64(file) {
@@ -20,11 +19,22 @@ function fileToBase64(file) {
 function imageToBase64Encode(image) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
+  const canvasSize = Math.min(image.naturalWidth, image.naturalHeight);
+  let startX = 0;
+  let startY = 0;
 
-  canvas.width = image.naturalWidth;
-  canvas.height = image.naturalWidth;
+  canvas.width = canvasSize;
+  canvas.height = canvasSize;
 
-  ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
+  if (image.naturalWidth > image.naturalHeight) {
+    startX = ((image.naturalWidth - image.naturalHeight) / 2) * -1;
+  }
+
+  if (image.naturalWidth < image.naturalHeight) {
+    startY = ((image.naturalHeight - image.naturalWidth) / 2) * -1;
+  }
+
+  ctx.drawImage(image, startX, startY, image.naturalWidth, image.naturalHeight);
 
   return canvas.toDataURL('image/jpeg', 0.8);
 }
