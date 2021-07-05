@@ -1,17 +1,16 @@
 import CardItem from './CardItem';
-function CardPreview({ selectedCard }) {
+function CardPreview({ selectedCard, me, onDelete }) {
   const message = selectedCard ? 'check your input' : 'make your awesome card';
 
   return (
     <>
       <p>{message}</p>
-      {!selectedCard ? (
-        <>
-          <CardItem isPreview={true}></CardItem>
-        </>
-      ) : (
-        <CardItem card={selectedCard}></CardItem>
-      )}
+      <>
+        {me?.uid === selectedCard?.uid ? (
+          <button onClick={() => onDelete(selectedCard)}>X</button>
+        ) : null}
+        <CardItem card={selectedCard} isPreview={true}></CardItem>
+      </>
     </>
   );
 }

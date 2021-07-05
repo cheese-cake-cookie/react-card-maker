@@ -23,7 +23,7 @@ function CardItem({ card, me, isPreview = false, onSelect }) {
       className={styles.card__item}
       style={cardStyle}
       onClick={() => {
-        !isPreview && onSelect(card);
+        if (!isPreview) onSelect(card);
       }}
     >
       <div className={styles.card__container}>

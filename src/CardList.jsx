@@ -1,5 +1,5 @@
 import CardItem from './CardItem';
-function CardList({ cards, me, onSelect }) {
+function CardList({ cards, me, onSelect, onDelete }) {
   const ids = Object.keys(cards);
 
   return (
@@ -13,6 +13,7 @@ function CardList({ cards, me, onSelect }) {
                 me={me}
                 key={id}
                 onSelect={onSelect}
+                onDelete={onDelete}
               ></CardItem>
             </li>
           );
