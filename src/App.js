@@ -43,17 +43,29 @@ function App() {
     setSelectedCard(updateCard);
   };
 
+  const deleteCard = (selectedCard) => {
+    if (! window.confirm('정말로 삭제하시겠습니까?')) return;
+    const cardRef = firebaseDatabase.ref().child(`cards/${selectedCard.id}`);
+    cardRef.remove().then(() => {
+      setSelectedCard(null);
+    });;
+  }
+
   const saveChange = () => {
     // @TODO insert or update
     if (!selectedCard.id) {
       const cardsRef = firebaseDatabase.ref().child('cards');
       const newCardRef = cardsRef.push();
       selectedCard.id = newCardRef.key;
-      newCardRef.set({ ...selectedCard, uid: me.uid });
+      newCardRef.set({ ...selectedCard, uid: me.uid }).then(() => {
+        setSelectedCard(null);
+      });
     } else {
       let updates = {};
       updates['/cards/' + selectedCard.id] = selectedCard;
-      firebaseDatabase.ref().update(updates);
+      firebaseDatabase.ref().update(updates).then(() => {
+        setSelectedCard(null);
+      });
     }
   };
 
@@ -117,7 +129,7 @@ function App() {
           <Main me={me}>
             <section className={styles.cardPreviewSection}>
               <h1>CardPreview</h1>
-              <CardPreview selectedCard={selectedCard}></CardPreview>
+              <CardPreview selectedCard={selectedCard} me={me} onDelete={deleteCard}></CardPreview>
               {!selectedCard && (
                 <button className={styles.button} onClick={createCard}>
                   Create new Card
@@ -145,7 +157,6 @@ function App() {
                 <h1>CardList</h1>
                 <CardList
                   cards={cards}
-                  me={me}
                   onSelect={setSelectedCard}
                 ></CardList>
               </section>
